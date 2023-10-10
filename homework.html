@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      list-style: none;
+    }
+
+    body {
+      text-align: center;
+    }
+
+    .navi-bar {
+      /* height: 0px; */
+      margin-bottom: 20px;
+      position: relative;
+      /* border: 1px solid red; */
+      /* background-color: rgba(0, 0, 0, 0.1); */
+    }
+
+    .navi {
+      position: relative;
+      left: 650px;
+      display: flex;
+    }
+
+    .navi li {
+      padding-right: 15px;
+      padding-left: 15px;
+      font-size: 25px;
+      font-weight: bold;
+      position: relative;
+      right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='homepage'>안녕~</div>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    const Title = () => {
+      return (
+        <h1
+          style={{
+            textAlign: "center",
+          }}>
+          브랜드</h1>
+      );
+    };
+
+
+    const Navi = () => {
+      const navi = ['NewProduct', 'Women', 'Man', 'Sale', 'MyPage'];
+      const navi_var = navi.map(na => <li>{na}</li>);
+      return (
+        <div className='navi-bar'>
+          <ul className="navi">{navi_var}</ul>
+        </div>
+      )
+    };
+
+
+    const MainImage = ({ src, handlerRightClick }) => {
+      return (
+        <div className="main_image">
+          <img src={src} alt="신발사진" />
+          <button onClick={handlerRightClick}>❤</button>
+        </div>
+      );
+    }
+
+    const Item = ({ src }) => {
+      return (
+        <li style={{ padding: 15 }}>
+          <img src={src}
+            alt='신발이미지'
+            width="350"
+          />
+          <div>
+            <p> 상품 명</p>
+          </div>
+        </li>
+      )
+    };
+
+    const Text = <h1>인기 상품</h1>
+
+    const ItemList = ({ itemlist }) => {
+      return (
+        <ul className="ItemList" style={{ display: 'flex', justifyContent: 'center' }}>
+          {itemlist.map(tem => <Item src={tem} key={tem} />)}
+        </ul>
+      )
+    };
+
+    function App() {
+      const MainImg = "img/relax-1137240_1280.jpg"
+      const imgOne = "img/shoes-1433925_1280.jpg"
+      const imgTwo = "img/running-shoe-371624_1280.jpg"
+      const imgThree = "img/boot-2558324_1280.jpg"
+      const imgchange = "img/skater-4618922_1280.jpg"
+      const [itemlist, setItemList] = React.useState([imgOne, imgTwo, imgThree]);
+      const [main, setMain] = React.useState(MainImg);
+      function handlerRightClick() {
+        console.log("클릭했다!!")
+        setMain(imgchange);
+      }
+
+      return (
+        <div>
+          <Title />
+          <Navi />
+          <MainImage src={main} handlerRightClick={handlerRightClick} />
+          {Text}
+          <ItemList itemlist={itemlist} />
+        </div>
+      )
+    }
+
+    const homepage = document.querySelector('#homepage');
+    ReactDOM.createRoot(homepage).render(<App />);
+  </script>
+</body>
+
+</html>
